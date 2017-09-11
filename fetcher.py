@@ -1,6 +1,5 @@
 import argparse
 import os
-import subprocess
 
 
 def parse_args():
@@ -9,12 +8,6 @@ def parse_args():
     parser.add_argument('--git_dir', type=str, help='directory that includes .git folders', required=True)
 
     return parser.parse_args()
-
-def run_command(command):
-    p = subprocess.Popen(command,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT)
-    return iter(p.stdout.readline, b'')
 
 def main():
     args = parse_args()
@@ -33,11 +26,8 @@ def main():
             continue
 
         for git in folders:
-            cd_command = ['cd',root + '/' + git]
-            run_command(cd_command)
-            fetch_command = ['git', 'fetch', '-a']
-            for line in run_command(fetch_command):
-                print(line)
+            os.system('cd ' + root + '/' + git)
+            os.system('git fetch -a')
 
 
 if __name__ == '__main__':
