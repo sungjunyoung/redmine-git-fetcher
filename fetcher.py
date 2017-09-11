@@ -26,7 +26,8 @@ def main():
             continue
 
         for git in folders:
-            os.system('cd ' + root + '/' + git)
+            print(root + '/' + git)
+            os.chdir(root + '/' + git)
             os.system('git fetch -a')
 
 
